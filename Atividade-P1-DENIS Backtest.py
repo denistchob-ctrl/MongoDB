@@ -320,20 +320,47 @@ def backtest_agregado(df_diario, granularidade, nome, gerar_grafico=True):
     # 5) Junta previsto com real (ambos diários)
     merged = teste_d.merge(prev_d[["ds", "yhat"]], on="ds", how="inner")
 
-    # 6) Agrega por granularidade
+    # 6) Agregação — feita na série DIÁRIA já preenchida
     if granularidade == "diario":
-        agg = merged
+        agg = merged.copy()
+
     elif granularidade == "semanal":
         merged["ds_ancora"] = merged["ds"] - pd.to_timedelta(merged["ds"].dt.weekday, unit="D")
-        agg = merged.groupby("ds_ancora").agg({"y": "sum", "yhat": "sum"}).reset_index()
-        agg = agg.rename(columns={"ds_ancora": "ds"})
-    else:  # mensal
-        merged["ds_ancora"] = merged["ds"].values.astype("datetime64[M]")
-        agg = merged.groupby("ds_ancora").agg({"y": "sum", "yhat": "sum"}).reset_index()
+
+        if nome == "ticket":
+            # Ticket: média ponderada (soma valor / soma quantidade)
+            # Para isso precisamos das duas séries separadas
+            valor_d = df_valor.set_index("ds")["y"]
+            qtd_d   = df_qtd.set_index("ds")["y"]
+
+            agg = merged.groupby("ds_ancora").apply(
+                lambda g: pd.Series({
+                    "y":    valor_d.reindex(g["ds"]).sum() / max(qtd_d.reindex(g["ds"]).sum(), 1e-9),
+                    "yhat": g["yhat"].sum() / max(qtd_d.reindex(g["ds"]).sum(), 1e-9),
+                })
+            ).reset_index()
+        else:
+            agg = merged.groupby("ds_ancora").agg({"y": "sum", "yhat": "sum"}).reset_index()
+
         agg = agg.rename(columns={"ds_ancora": "ds"})
 
-    if len(agg) < 1:
-        return None
+    elif granularidade == "mensal":
+        merged["ds_ancora"] = merged["ds"].values.astype("datetime64[M]")
+
+        if nome == "ticket":
+            valor_d = df_valor.set_index("ds")["y"]
+            qtd_d   = df_qtd.set_index("ds")["y"]
+
+            agg = merged.groupby("ds_ancora").apply(
+                lambda g: pd.Series({
+                    "y":    valor_d.reindex(g["ds"]).sum() / max(qtd_d.reindex(g["ds"]).sum(), 1e-9),
+                    "yhat": g["yhat"].sum() / max(qtd_d.reindex(g["ds"]).sum(), 1e-9),
+                })
+            ).reset_index()
+        else:
+            agg = merged.groupby("ds_ancora").agg({"y": "sum", "yhat": "sum"}).reset_index()
+
+        agg = agg.rename(columns={"ds_ancora": "ds"})
 
     # 7) Métricas
     real = agg["y"].values
