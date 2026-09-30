@@ -60,7 +60,9 @@ import streamlit as st
 uri = st.secrets["MONGODB_URI"]
 
 try:
+    st.markdown("Inicio")
     client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+    st.markdown("Passo 2")
     client.admin.command("ping")
     st.success("MongoDB Atlas conectado com sucesso!")
 
