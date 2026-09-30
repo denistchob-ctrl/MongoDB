@@ -1,10 +1,11 @@
 # core/mongo_client.py
 from pymongo import MongoClient
-from config.settings import MONGO_URI, DB_NAME
+from config.settings import MONGO_URI, DB_NAME, DB_USERNAME
 
 def get_db():
     """Retorna o database configurado."""
-    print(f"Conexão: {MONGO_URI}")
+    print(f"Conexão : {MONGO_URI}")
+    print(f"USERNAME: {DB_USERNAME}")
     client = MongoClient(MONGO_URI)
     return client[DB_NAME]
 
