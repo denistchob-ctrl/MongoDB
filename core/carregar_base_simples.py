@@ -1,5 +1,5 @@
 # core/carregar_base_simples.py
-from core.mongo_client import get_db
+from core.mongo_client import get_db, ping
 import streamlit as st
 
 # ============================================================
@@ -116,7 +116,7 @@ def executar() -> dict:
     """Limpa e insere a base simples. Retorna as contagens."""
     st.markdown("Vou abrir a conexão")
     db = get_db()
-    
+    x = ping()
 
     # 1) Limpa
     # db.produtos.drop()
