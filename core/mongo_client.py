@@ -11,6 +11,7 @@ def get_db():
 def ping():
     """Testa a conexão."""
     try:
+        print("Tentando realizar a conexão")
         get_db().command("ping")
         print("Conexão realizada com sucesso")
         return True
