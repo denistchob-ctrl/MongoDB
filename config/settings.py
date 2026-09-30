@@ -9,14 +9,22 @@ MONGO_URI = "mongodb://localhost:27017/"
 DB_NAME   = "loja"
 
 import streamlit as st
-DB_USERNAME = st.secrets.get("DB_USERNAME", "")
-DB_PWD      = st.secrets.get("DB_PWD", "")
-DB_HOST     = st.secrets.get("DB_HOST", "")
-DB_NAME     = st.secrets.get("DB_NAME", "loja")
-if DB_USERNAME and DB_PWD and DB_HOST:
-    MONGO_URI = f"mongodb+srv://{DB_USERNAME}:{DB_PWD}@{DB_HOST}/?appName=Cluster0"
-else:
-    MONGO_URI = "mongodb://localhost:27017/"
+# DB_USERNAME = st.secrets.get("DB_USERNAME", "")
+# DB_PWD      = st.secrets.get("DB_PWD", "")
+# DB_HOST     = st.secrets.get("DB_HOST", "")
+# DB_NAME     = st.secrets.get("DB_NAME", "loja")
+
+# if DB_USERNAME and DB_PWD and DB_HOST:
+#     MONGO_URI = f"mongodb+srv://{DB_USERNAME}:{DB_PWD}@{DB_HOST}/?appName=Cluster0"
+# else:
+#     MONGO_URI = "mongodb://localhost:27017/"
+
+# ---------- CONEXÃO ----------
+MONGO_URI = st.secrets.get("MONGO_URI", "mongodb://localhost:27017/")
+DB_NAME   = st.secrets.get("DB_NAME", "loja")
+
+# Diagnóstico — útil para debug
+AMBIENTE = "NUVEM (Atlas)" if "mongodb+srv" in MONGO_URI else "LOCAL (localhost)"
 
 # ---------- PALETA ----------
 # Tom metálico azul + destaque laranja
