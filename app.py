@@ -1,7 +1,7 @@
 # app.py
 import streamlit as st
 from ui.styles import aplicar_css
-from config.settings import MONGO_URI, DB_NAME, AMBIENTE
+from config.settings import MONGO_URI, DB_NAME, AMBIENTE, DB_USERNAME
 from ui import (
     secao_proposta,
     secao_base_simples,
@@ -41,9 +41,10 @@ secao = st.sidebar.radio(
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Banco de Dados 2 — Ciência de Dados para Negócios")
-st.sidebar.caption(f"Ambiente: {AMBIENTE}")
-st.sidebar.caption(f"DB......: {DB_NAME}")
-st.sidebar.caption(f"URI.....: {MONGO_URI[:20]}...")
+st.sidebar.caption(f"Ambiente...: {AMBIENTE}")
+st.sidebar.caption(f"DB.........: {DB_NAME}")
+st.sidebar.caption(f"DB_USERNAME: {DB_USERNAME}")
+st.sidebar.caption(f"URI........: {MONGO_URI[:20]}...")
 
 # ---------- ROTEAMENTO ----------
 if   secao == "🏠 Proposta do Projeto":          secao_proposta.render()
