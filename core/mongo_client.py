@@ -1,23 +1,24 @@
 # core/mongo_client.py
 from pymongo import MongoClient
 from config.settings import MONGO_URI, DB_NAME, DB_USERNAME
+import streamlit as st
 
 def get_db():
     """Retorna o database configurado."""
-    print(f"Conexão : {MONGO_URI}")
-    print(f"USERNAME: {DB_USERNAME}")
+    st.markdown(f"Conexão : {MONGO_URI}")
+    st.markdown(f"USERNAME: {DB_USERNAME}")
     client = MongoClient(MONGO_URI)
     return client[DB_NAME]
 
 def ping():
     """Testa a conexão."""
     try:
-        print("Tentando realizar a conexão")
+        st.markdown("Tentando realizar a conexão")
         get_db().command("ping")
-        print("Conexão realizada com sucesso")
+        st.markdown("Conexão realizada com sucesso")
         return True
     except Exception:
-        print("Erro na conexão durante monge_client.py")
+        st.markdown("Erro na conexão durante monge_client.py")
         return False
 
 def limpar_base():
