@@ -5,14 +5,17 @@ from config.settings import MONGO_URI, DB_NAME
 def get_db():
     """Retorna o database configurado."""
     client = MongoClient(MONGO_URI)
+    print(f"Conexão: {MONGO_URI}")
     return client[DB_NAME]
 
 def ping():
     """Testa a conexão."""
     try:
         get_db().command("ping")
+        print("Conexão realizada com sucesso")
         return True
     except Exception:
+        print("Erro na conexão durante monge_client.py")
         return False
 
 def limpar_base():

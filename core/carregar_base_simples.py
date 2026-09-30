@@ -116,9 +116,12 @@ def executar() -> dict:
     db = get_db()
 
     # 1) Limpa
-    db.produtos.drop()
-    db.clientes.drop()
-    db.pedidos.drop()
+    # db.produtos.drop()
+    # db.clientes.drop()
+    # db.pedidos.drop()
+    print(f"Produtos: {db.produtos.count_documents({})}")
+    print(f"Clientes: {db.clientes.count_documents({})}")
+    print(f"Pedidos : {db.pedidos.count_documents({})}")
 
     # 2) Converte strings em datetime (obrigatório para o MongoDB)
     from datetime import datetime

@@ -2,23 +2,6 @@
 import streamlit as st
 from ui.componentes import titulo, card, badge
 
-from pymongo import MongoClient
-from pymongo.errors import OperationFailure, ServerSelectionTimeoutError
-
-
-DB_USERNAME = st.secrets.get("DB_USERNAME", "")
-DB_PWD      = st.secrets.get("DB_PWD", "")
-DB_HOST     = st.secrets.get("DB_HOST", "")
-DB_NAME     = st.secrets.get("DB_NAME", "loja")
-
-if DB_USERNAME and DB_PWD and DB_HOST:
-    MONGO_URI = f"mongodb+srv://{DB_USERNAME}:{DB_PWD}@{DB_HOST}/?appName=Cluster0&retryWrites=true&w=majority&authSource=admin"
-else:
-    MONGO_URI = "mongodb://localhost:27017/"
-
-# Diagnóstico — útil para debug
-AMBIENTE = "NUVEM (ATLAS)" if "mongodb+srv" in MONGO_URI else "LOCAL (localhost)"
-
 def render():
     titulo("Usando MongoDB para uma Loja de Produtos de Informática",
            "Projeto de Banco de Dados 2 — Ciência de Dados para Negócios")
@@ -59,27 +42,3 @@ def render():
 
     st.markdown("### 👤 Autor")
     st.markdown("**Denis Tchobnian Cardoso** — RA 2721542522018")
-
-    st.markdown(MONGO_URI)
-
-    # try:
-    #     st.sidebar.caption("Iniciando Conexão")
-    #     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=8000)
-    #     client.admin.command("ping")
-    #     st.sidebar.caption("✅ Conexão e autenticação OK")
-    #     st.sidebar.caption(f">>> {MONGO_URI} <<<")
-
-    #     db = client["loja"]
-    #     db.teste.insert_one({"ping": 1})
-    #     st.sidebar.caption("✅ Escrita no banco 'loja' OK")
-    #     st.sidebar.caption(db.teste.count_documents({}))
-    #     # db.teste.drop()
-
-    # except OperationFailure as e:
-    #     st.sidebar.caption(f"❌ OperationFailure — Código: {e.code}")
-    #     st.sidebar.caption(f"Mensagem completa: {e.details}")
-    # except ServerSelectionTimeoutError:
-    #     st.sidebar.caption("❌ Timeout — IP Access List bloqueou a conexão")
-    # except Exception as e:
-    #     st.sidebar.caption(f"❌ Erro inesperado: {type(e).__name__} - {e}")
-

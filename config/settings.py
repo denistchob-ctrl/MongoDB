@@ -15,9 +15,9 @@ DB_HOST     = st.secrets.get("DB_HOST", "")
 DB_NAME     = st.secrets.get("DB_NAME", "loja")
 
 if DB_USERNAME and DB_PWD and DB_HOST:
-    MONGO_URI = f"mongodb+srv://{DB_USERNAME}:{DB_PWD}@{DB_HOST}/?appName=Cluster0&retryWrites=true&w=majority&authSource=admin"
+    MONGO_URI = f"mongodb+srv://{DB_USERNAME}:{DB_PWD}@{DB_HOST}/?appName=Cluster0&retryWrites=true&w=majority"
 else:
-    MONGO_URI = "mongodb://localhost:27017/" + " -- " + DB_USERNAME
+    MONGO_URI = "mongodb://localhost:27017/"
 
 # Diagnóstico — útil para debug
 AMBIENTE = "NUVEM (ATLAS)" if "mongodb+srv" in MONGO_URI else "LOCAL (localhost)"
