@@ -66,5 +66,50 @@ def render():
                     data_fim=data_fim,
                     limpar=limpar,
                 )
-            st.success("Base gerada com sucesso!")
-            st.json(resumo)
+
+            # ✅ 1) Mensagem de sucesso com destaque
+            st.success(resumo["mensagem"])
+
+            # ✅ 2) Métricas em cards (não usa st.json — não quebra com datetime)
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Produtos",  resumo["qtd_produtos"])
+            col2.metric("Clientes",  resumo["qtd_clientes"])
+            col3.metric("Pedidos",   resumo["qtd_pedidos"])
+
+            st.caption(
+                f"Período gerado: **{resumo['periodo_inicio']}** a **{resumo['periodo_fim']}**"
+            )
+
+            # ✅ 3) Amostras com st.json SEGURO (converte datetime/ObjectId)
+            def _json_safe(doc: dict) -> dict:
+                from datetime import date as _date
+                from bson import ObjectId
+                out = {}
+                for k, v in doc.items():
+                    if isinstance(v, (date, _date)):
+                        out[k] = v.isoformat()
+                    elif isinstance(v, ObjectId):
+                        out[k] = str(v)
+                    elif isinstance(v, dict):
+                        out[k] = _json_safe(v)
+                    elif isinstance(v, list):
+                        out[k] = [
+                            _json_safe(i) if isinstance(i, dict)
+                            else i.isoformat() if isinstance(i, (date, _date))
+                            else str(i) if isinstance(i, ObjectId)
+                            else i
+                            for i in v
+                        ]
+                    else:
+                        out[k] = v
+                return out
+
+            with st.expander("🔎 Amostra de produto"):
+                st.json(_json_safe(resumo["amostra_produto"]))
+
+            with st.expander("🔎 Amostra de cliente"):
+                st.json(_json_safe(resumo["amostra_cliente"]))
+
+            with st.expander("🔎 Amostra de pedido"):
+                st.json(_json_safe(resumo["amostra_pedido"]))
+
