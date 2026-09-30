@@ -113,7 +113,9 @@ UPDATES_TAGS = [
 
 def executar() -> dict:
     """Limpa e insere a base simples. Retorna as contagens."""
+    print("Vou abrir a conexão")
     db = get_db()
+    
 
     # 1) Limpa
     # db.produtos.drop()
