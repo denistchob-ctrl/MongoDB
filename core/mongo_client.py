@@ -17,8 +17,9 @@ def ping():
         get_db().command("ping")
         st.markdown("Conexão realizada com sucesso")
         return True
-    except Exception:
+    except Exception as e:
         st.markdown("Erro na conexão durante monge_client.py")
+        st.markdown(f"Erro: {e}")
         return False
 
 def limpar_base():
