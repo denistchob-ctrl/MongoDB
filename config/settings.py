@@ -24,7 +24,7 @@ MONGO_URI = st.secrets.get("MONGO_URI", "mongodb://localhost:27017/")
 DB_NAME   = st.secrets.get("DB_NAME", "loja")
 
 # Diagnóstico — útil para debug
-AMBIENTE = "NUVEM (Atlas)" if "mongodb+srv" in MONGO_URI else "LOCAL (localhost)"
+AMBIENTE = "NUVEM (ATLAS)" if "mongodb+srv" in MONGO_URI else "LOCAL (localhost)"
 
 # ---------- PALETA ----------
 # Tom metálico azul + destaque laranja
