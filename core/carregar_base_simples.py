@@ -1,6 +1,5 @@
 # core/carregar_base_simples.py
 from core.mongo_client import get_db, ping
-import streamlit as st
 
 # ============================================================
 # DADOS DA BASE SIMPLES (Mongo-Inclusao v2)
@@ -114,17 +113,23 @@ UPDATES_TAGS = [
 
 def executar() -> dict:
     """Limpa e insere a base simples. Retorna as contagens."""
-    st.markdown("Vou abrir a conexão")
     db = get_db()
-    x = ping()
 
     # 1) Limpa
-    # db.produtos.drop()
-    # db.clientes.drop()
-    # db.pedidos.drop()
-    st.markdown(f"Produtos: {db.produtos.count_documents({})}")
-    st.markdown(f"Clientes: {db.clientes.count_documents({})}")
-    st.markdown(f"Pedidos : {db.pedidos.count_documents({})}")
+    try:
+        db.produtos.drop()
+    except Exception as e:
+        pass
+
+    try:
+        db.clientes.drop()
+    except Exception as e:
+        pass
+
+    try:
+        db.pedidos.drop()
+    except Exception as e:
+        pass
 
     # 2) Converte strings em datetime (obrigatório para o MongoDB)
     from datetime import datetime
