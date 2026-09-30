@@ -29,7 +29,7 @@ try:
     db = client["loja"]
     db.teste.insert_one({"ping": 1})
     print("✅ Escrita no banco 'loja' OK")
-    db.teste.drop()
+    # db.teste.drop()
 
 except OperationFailure as e:
     print(f"❌ OperationFailure — Código: {e.code}")
