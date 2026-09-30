@@ -24,11 +24,13 @@ try:
     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=8000)
     client.admin.command("ping")
     print("✅ Conexão e autenticação OK")
+    print(f">>> {MONGO_URI} <<<")
 
     # Tenta uma operação de escrita no banco 'loja'
     db = client["loja"]
     db.teste.insert_one({"ping": 1})
     print("✅ Escrita no banco 'loja' OK")
+    print(db.teste.count_documents({}))
     # db.teste.drop()
 
 except OperationFailure as e:
