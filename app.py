@@ -1,6 +1,7 @@
 # app.py
 import streamlit as st
 from ui.styles import aplicar_css
+from config.settings import MONGO_URI, DB_NAME
 from ui import (
     secao_proposta,
     secao_base_simples,
