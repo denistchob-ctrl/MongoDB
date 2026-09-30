@@ -60,24 +60,26 @@ def render():
     st.markdown("### 👤 Autor")
     st.markdown("**Denis Tchobnian Cardoso** — RA 2721542522018")
 
-    try:
-        st.sidebar.caption("Iniciando Conexão")
-        client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=8000)
-        client.admin.command("ping")
-        st.sidebar.caption("✅ Conexão e autenticação OK")
-        st.sidebar.caption(f">>> {MONGO_URI} <<<")
+    st.markdown(MONGO_URI)
 
-        db = client["loja"]
-        db.teste.insert_one({"ping": 1})
-        st.sidebar.caption("✅ Escrita no banco 'loja' OK")
-        st.sidebar.caption(db.teste.count_documents({}))
-        # db.teste.drop()
+    # try:
+    #     st.sidebar.caption("Iniciando Conexão")
+    #     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=8000)
+    #     client.admin.command("ping")
+    #     st.sidebar.caption("✅ Conexão e autenticação OK")
+    #     st.sidebar.caption(f">>> {MONGO_URI} <<<")
 
-    except OperationFailure as e:
-        st.sidebar.caption(f"❌ OperationFailure — Código: {e.code}")
-        st.sidebar.caption(f"Mensagem completa: {e.details}")
-    except ServerSelectionTimeoutError:
-        st.sidebar.caption("❌ Timeout — IP Access List bloqueou a conexão")
-    except Exception as e:
-        st.sidebar.caption(f"❌ Erro inesperado: {type(e).__name__} - {e}")
+    #     db = client["loja"]
+    #     db.teste.insert_one({"ping": 1})
+    #     st.sidebar.caption("✅ Escrita no banco 'loja' OK")
+    #     st.sidebar.caption(db.teste.count_documents({}))
+    #     # db.teste.drop()
+
+    # except OperationFailure as e:
+    #     st.sidebar.caption(f"❌ OperationFailure — Código: {e.code}")
+    #     st.sidebar.caption(f"Mensagem completa: {e.details}")
+    # except ServerSelectionTimeoutError:
+    #     st.sidebar.caption("❌ Timeout — IP Access List bloqueou a conexão")
+    # except Exception as e:
+    #     st.sidebar.caption(f"❌ Erro inesperado: {type(e).__name__} - {e}")
 
