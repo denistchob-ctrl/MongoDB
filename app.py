@@ -42,8 +42,8 @@ secao = st.sidebar.radio(
 st.sidebar.markdown("---")
 st.sidebar.caption("Banco de Dados 2 — Ciência de Dados para Negócios")
 st.sidebar.caption(f"Ambiente: {AMBIENTE}")
-st.sidebar.caption(f"DB      : {DB_NAME}")
-st.sidebar.caption(f"URI     : {MONGO_URI[:40]}...")
+st.sidebar.caption(f"DB......: {DB_NAME}")
+st.sidebar.caption(f"URI.....: {MONGO_URI[:20]}...")
 
 # ---------- ROTEAMENTO ----------
 if   secao == "🏠 Proposta do Projeto":          secao_proposta.render()
