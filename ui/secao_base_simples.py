@@ -18,14 +18,9 @@ def render():
         if st.button("🚀 Carregar base simples", use_container_width=True):
             with st.spinner("Limpando e recarregando..."):
                 resultado = carregar_base_simples.executar()
-            # st.success(f"Base carregada: {resultado['produtos']} produtos, "
-            #            f"{resultado['clientes']} clientes, "
-            #            f"{resultado['pedidos']} pedidos.")
-            st.success(
-                f"Base carregada: {resultado['total_produtos']} produtos, "
-                f"{resultado['total_clientes']} clientes, "
-                f"{resultado['total_pedidos']} pedidos."
-            )
+            st.success(f"Base carregada: {resultado['produtos']} produtos, "
+                       f"{resultado['clientes']} clientes, "
+                       f"{resultado['pedidos']} pedidos.")
             st.session_state["base_carregada"] = True
 
     if st.session_state.get("base_carregada"):

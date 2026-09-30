@@ -5,22 +5,15 @@ import streamlit as st
 
 def get_db():
     """Retorna o database configurado."""
-    st.markdown(f"Conexão : {MONGO_URI}")
-    st.markdown(f"USERNAME: {DB_USERNAME}")
-    st.markdown(f"PWD     : {DB_PWD}")
     client = MongoClient(MONGO_URI)
     return client[DB_NAME]
 
 def ping():
     """Testa a conexão."""
     try:
-        st.markdown("Tentando realizar a conexão")
         get_db().command("ping")
-        st.markdown("Conexão realizada com sucesso")
         return True
     except Exception as e:
-        st.markdown("Erro na conexão durante monge_client.py")
-        st.markdown(f"Erro: {e}")
         return False
 
 def limpar_base():
