@@ -57,7 +57,7 @@ import streamlit as st
 
 
 #outro tipo de teste
-uri = st.secrets["MONGODB_URI"]
+uri = st.secrets["MONGO_URI"]
 
 try:
     st.markdown("Inicio")
