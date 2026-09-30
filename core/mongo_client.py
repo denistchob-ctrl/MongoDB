@@ -4,8 +4,8 @@ from config.settings import MONGO_URI, DB_NAME
 
 def get_db():
     """Retorna o database configurado."""
-    client = MongoClient(MONGO_URI)
     print(f"Conexão: {MONGO_URI}")
+    client = MongoClient(MONGO_URI)
     return client[DB_NAME]
 
 def ping():
