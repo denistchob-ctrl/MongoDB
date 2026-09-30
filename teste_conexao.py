@@ -41,14 +41,29 @@ import streamlit as st
 # except Exception as e:
 #     print(f"❌ Erro inesperado: {type(e).__name__} - {e}")
 
-@st.cache_resource
-def init_connection():
-    client = MongoClient(st.secrets["MONGODB_URI"])
+#outro tipo de teste
+
+# @st.cache_resource
+# def init_connection():
+#     client = MongoClient(st.secrets["MONGODB_URI"])
+#     client.admin.command("ping")
+#     return client
+
+# client = init_connection()
+
+# db = client["loja"]
+
+# st.success("MongoDB conectado!")
+
+
+#outro tipo de teste
+uri = st.secrets["MONGODB_URI"]
+
+try:
+    client = MongoClient(uri, serverSelectionTimeoutMS=5000)
     client.admin.command("ping")
-    return client
+    st.success("MongoDB Atlas conectado com sucesso!")
 
-client = init_connection()
+except Exception as e:
+    st.error(f"Erro: {e}")
 
-db = client["loja"]
-
-st.success("MongoDB conectado!")
