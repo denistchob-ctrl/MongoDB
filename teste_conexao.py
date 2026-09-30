@@ -4,8 +4,15 @@ from pymongo.errors import OperationFailure, ServerSelectionTimeoutError
 
 import streamlit as st
 # ---------- CONEXÃO ----------
-MONGO_URI = st.secrets.get("MONGO_URI", "mongodb://localhost:27017/")
-DB_NAME   = st.secrets.get("DB_NAME", "loja")
+DB_USERNAME = st.secrets.get("DB_USERNAME", "")
+DB_PWD      = st.secrets.get("DB_PWD", "")
+DB_HOST     = st.secrets.get("DB_HOST", "")
+DB_NAME     = st.secrets.get("DB_NAME", "loja")
+
+if DB_USERNAME and DB_PWD and DB_HOST:
+    MONGO_URI = f"mongodb+srv://{DB_USERNAME}:{DB_PWD}@{DB_HOST}/?appName=Cluster0&retryWrites=true&w=majority&authSource=admin"
+else:
+    MONGO_URI = "mongodb://localhost:27017/"
 
 # Diagnóstico — útil para debug
 AMBIENTE = "NUVEM (ATLAS)" if "mongodb+srv" in MONGO_URI else "LOCAL (localhost)"
