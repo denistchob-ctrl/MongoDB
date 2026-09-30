@@ -61,6 +61,7 @@ def render():
     st.markdown("**Denis Tchobnian Cardoso** — RA 2721542522018")
 
     try:
+        st.sidebar.caption("Iniciando Conexão")
         client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=8000)
         client.admin.command("ping")
         st.sidebar.caption("✅ Conexão e autenticação OK")
