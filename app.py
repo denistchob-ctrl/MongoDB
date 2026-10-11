@@ -1,11 +1,10 @@
 # app.py
 import streamlit as st
 from ui.styles import aplicar_css
-from config.settings import MONGO_URI, DB_NAME, AMBIENTE, DB_USERNAME
+from config.settings import MONGO_URI, DB_NAME, AMBIENTE
 from ui import (
     secao_proposta,
-    secao_base_simples,
-    secao_geracao,
+    secao_geracao,        # ← unificada (era secao_base_simples + secao_geracao)
     secao_operadores,
     secao_agregadores,
     secao_series,
@@ -29,8 +28,7 @@ secao = st.sidebar.radio(
     "Navegação",
     [
         "🏠 Proposta do Projeto",
-        "📦 Base de Dados Simples",
-        "🎲 Geração de Dados Aleatórios",
+        "📦 Geração de Base de Dados",       # ← novo item único
         "🔍 Operadores",
         "📊 Agregadores",
         "📈 Séries Temporais",
@@ -41,16 +39,14 @@ secao = st.sidebar.radio(
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Banco de Dados 2 — Ciência de Dados para Negócios")
-st.sidebar.caption(f"Ambiente...: {AMBIENTE}")
-st.sidebar.caption(f"DB.........: {DB_NAME}")
-st.sidebar.caption(f"DB_USERNAME: {DB_USERNAME}")
-st.sidebar.caption(f"URI........: {MONGO_URI[:20]}...")
+st.sidebar.caption(f"Ambiente: {AMBIENTE}")
+# st.sidebar.caption(f"DB: {DB_NAME}")
+# st.sidebar.caption(f"URI: {MONGO_URI[:40]}...")
 
 # ---------- ROTEAMENTO ----------
-if   secao == "🏠 Proposta do Projeto":          secao_proposta.render()
-elif secao == "📦 Base de Dados Simples":        secao_base_simples.render()
-elif secao == "🎲 Geração de Dados Aleatórios":  secao_geracao.render()
-elif secao == "🔍 Operadores":                   secao_operadores.render()
-elif secao == "📊 Agregadores":                  secao_agregadores.render()
-elif secao == "📈 Séries Temporais":             secao_series.render()
-elif secao == "🧪 Backtest":                     secao_backtest.render()
+if   secao == "🏠 Proposta do Projeto":       secao_proposta.render()
+elif secao == "📦 Geração de Base de Dados":  secao_geracao.render()
+elif secao == "🔍 Operadores":                secao_operadores.render()
+elif secao == "📊 Agregadores":               secao_agregadores.render()
+elif secao == "📈 Séries Temporais":          secao_series.render()
+elif secao == "🧪 Backtest":                  secao_backtest.render()
