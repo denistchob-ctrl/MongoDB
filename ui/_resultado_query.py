@@ -91,7 +91,7 @@ def render_resultado(resultado: dict, mostrar_explicacao: str | None = None):
     st.dataframe(
         df,
         # use_container_width=True,
-        width='stretch'
+        width='stretch',
         height=min(250, 40 + 35 * len(df)),
     )
 
