@@ -15,8 +15,8 @@ CATALOGO = [
         "titulo": "$eq — Igualdade (clientes)",
         "categoria": "Comparação",
         "colecao": "clientes",
-        "comando": 'db.clientes.find( { codigo: { $eq: 100 } } )',
-        "filtro": {"codigo": {"$eq": 100}},
+        "comando": 'db.clientes.find( { codigo: { $eq: 105 } } )',
+        "filtro": {"codigo": {"$eq": 105}},
         "projecao": None,
         "explicacao": (
             "O operador $eq seleciona documentos em que o campo é IGUAL ao valor "
