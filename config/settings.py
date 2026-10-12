@@ -16,8 +16,8 @@ DB_NAME     = st.secrets.get("DB_NAME", "loja")
 
 if DB_USERNAME and DB_PWD and DB_HOST:
     MONGO_URI = f"mongodb+srv://{DB_USERNAME}:{DB_PWD}@{DB_HOST}/?appName=Cluster0&retryWrites=true&w=majority"
-    st.sidebar.success("Conexão com MongoDB Atlas estabelecida com sucesso!")
-    st.sidebar.info(f"URI: {MONGO_URI[:40]}...")
+    # st.sidebar.success("Conexão com MongoDB Atlas estabelecida com sucesso!")
+    # st.sidebar.info(f"URI: {MONGO_URI[:40]}...")
 else:
     MONGO_URI = "mongodb://localhost:27017/"
 
